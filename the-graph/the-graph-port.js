@@ -12,11 +12,11 @@
     ],
     componentDidMount: function () {
       // Preview edge start
-      this.getDOMNode().addEventListener("tap", this.edgeStart);
-      this.getDOMNode().addEventListener("trackstart", this.edgeStart);
+      //this.getDOMNode().addEventListener("tap", this.edgeStart);
+      //this.getDOMNode().addEventListener("trackstart", this.edgeStart);
       // Make edge
-      this.getDOMNode().addEventListener("trackend", this.triggerDropOnTarget);
-      this.getDOMNode().addEventListener("the-graph-edge-drop", this.edgeStart);
+      //this.getDOMNode().addEventListener("trackend", this.triggerDropOnTarget);
+      //this.getDOMNode().addEventListener("the-graph-edge-drop", this.edgeStart);
 
       // Show context menu
       if (this.props.showContext) {
@@ -86,8 +86,8 @@
       }
       // Don't tap graph
       event.stopPropagation();
-      
-      var edgeStartEvent = new CustomEvent('the-graph-edge-start', { 
+
+      var edgeStartEvent = new CustomEvent('the-graph-edge-start', {
         detail: {
           isIn: this.props.isIn,
           port: this.props.port,
@@ -96,16 +96,16 @@
         },
         bubbles: true
       });
-      this.getDOMNode().dispatchEvent(edgeStartEvent);      
+      this.getDOMNode().dispatchEvent(edgeStartEvent);
     },
     triggerDropOnTarget: function (event) {
       // If dropped on a child element will bubble up to port
       if (!event.relatedTarget) { return; }
-      var dropEvent = new CustomEvent('the-graph-edge-drop', { 
+      var dropEvent = new CustomEvent('the-graph-edge-drop', {
         detail: null,
         bubbles: true
       });
-      event.relatedTarget.dispatchEvent(dropEvent);      
+      event.relatedTarget.dispatchEvent(dropEvent);
     },
     componentDidUpdate: function (prevProps, prevState) {
       // HACK to change SVG class https://github.com/facebook/react/issues/1139

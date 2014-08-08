@@ -103,16 +103,15 @@
         // Component library
         var library = {
           basic: {
-            name: 'basic',
-            description: 'basic demo component',
-            icon: 'eye',
+            name: 'zeitpunkt',
+            description: 'Ein Zeitpunkt.',
+            icon: 'globe',
             inports: [
-              {'name': 'in0', 'type': 'all'},
-              {'name': 'in1', 'type': 'all'},
-              {'name': 'in2', 'type': 'all'}
+              {'name': 'vorgaenger', 'type': 'all'}
             ],
             outports: [
-              {'name': 'out', 'type': 'all'}
+              {'name': 'course_complete', 'type': 'all'},
+              {'name': 'click', 'type': 'all'}
             ]
           }
         };

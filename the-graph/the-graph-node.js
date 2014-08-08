@@ -242,7 +242,7 @@
     shouldComponentUpdate: function (nextProps, nextState) {
       // Only rerender if changed
       return (
-        nextProps.x !== this.props.x || 
+        nextProps.x !== this.props.x ||
         nextProps.y !== this.props.y ||
         nextProps.icon !== this.props.icon ||
         nextProps.label !== this.props.label ||
@@ -336,7 +336,7 @@
 
       // Make sure icon exists
       var icon = TheGraph.FONT_AWESOME[ this.props.icon ];
-      if (!icon) { 
+      if (!icon) {
         icon = TheGraph.FONT_AWESOME.cog;
       }
 
