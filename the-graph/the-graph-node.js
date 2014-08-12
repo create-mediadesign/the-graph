@@ -223,7 +223,7 @@
         graphView: this.props.graphView,
         node: this,
         icon: this.props.icon,
-        ports: ports,
+        ports: {'inports': {}, 'outports': {}}, // was: ports,
         process: this.props.node,
         processKey: processKey,
         x: x,
@@ -303,7 +303,7 @@
           port: {process:processKey, port:info.label, type:info.type},
           highlightPort: highlightPort,
           route: info.route,
-          showContext: showContext
+          showContext: false // was: showContext
         };
         return TheGraph.Port(props);
       });
@@ -329,7 +329,7 @@
           port: {process:processKey, port:info.label, type:info.type},
           highlightPort: highlightPort,
           route: info.route,
-          showContext: showContext
+          showContext: false // was: showContext
         };
         return TheGraph.Port(props);
       });

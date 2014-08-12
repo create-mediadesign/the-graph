@@ -50,7 +50,7 @@
       var scale = this.state.scale + (this.state.scale * zoomFactor);
       this.zoomFactor = 0;
 
-      if (scale < this.minZoom) { 
+      if (scale < this.minZoom) {
         scale = this.minZoom;
       }
       if (scale === this.state.scale) { return; }
@@ -212,7 +212,7 @@
       if (Hammer) {
         Hammer(domNode, {
           tap: false,
-          hold: false, 
+          hold: false,
           transform: true
         });
       }
@@ -263,8 +263,8 @@
     },
     keyDown: function (event) {
       // HACK metaKey global for taps https://github.com/Polymer/PointerGestures/issues/29
-      if (event.metaKey || event.ctrlKey) { 
-        TheGraph.metaKeyPressed = true; 
+      if (event.metaKey || event.ctrlKey) {
+        TheGraph.metaKeyPressed = true;
       }
     },
     keyUp: function (event) {
@@ -276,8 +276,8 @@
         this.refs.graph.cancelPreviewEdge();
       }
       // HACK metaKey global for taps https://github.com/Polymer/PointerGestures/issues/29
-      if (TheGraph.metaKeyPressed) { 
-        TheGraph.metaKeyPressed = false; 
+      if (TheGraph.metaKeyPressed) {
+        TheGraph.metaKeyPressed = false;
       }
     },
     unselectAll: function (event) {
@@ -311,7 +311,7 @@
       var or = Math.floor(this.state.y / g) + (this.state.y<0 ? 1 : 0);
 
       while (row--) {
-        var col = cols; 
+        var col = cols;
         while (col--) {
           var x = Math.round(col*g+dx);
           var y = Math.round(row*g+dy);
@@ -349,7 +349,7 @@
         }
       }
       if (contextMenu) {
-        contextModal = [ 
+        contextModal = [
           TheGraph.ModalBG({
             width: this.state.width,
             height: this.state.height,
@@ -365,7 +365,7 @@
       return React.DOM.div(
         {
           className: "the-graph-app " + scaleClass,
-          name:"app", 
+          name:"app",
           style: {
             width: this.state.width,
             height: this.state.height
@@ -374,13 +374,13 @@
         React.DOM.canvas({
           ref: "canvas",
           className: "app-canvas",
-          width: this.state.width, 
+          width: this.state.width,
           height: this.state.height
         }),
         React.DOM.svg(
           {
             className: "app-svg",
-            width: this.state.width, 
+            width: this.state.width,
             height: this.state.height
           },
           React.DOM.g(
