@@ -1,3 +1,5 @@
 bower_components/
 node_modules/
 build/
+.DS_Store
+the-time-manager/time-manager/

@@ -2,7 +2,7 @@
   "use strict";
   module.exports = function() {
 
-    var banner = 
+    var banner =
       "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today('yyyy-mm-dd') %> (<%= grunt.template.date('longTime') %>)\n"+
       "* Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>; Licensed <%= _.pluck(pkg.licenses, 'type').join(', ') %> */\n";
 
@@ -13,13 +13,15 @@
       css: ['themes/*.css']
     };
 
-    var jshintOptions = { 
+    var jshintOptions = {
       strict: true,
       newcap: false,
       "globals": { "Polymer": true }
     };
 
-    this.initConfig({
+    var timeManager = require('./scripts/build-time-manager.js');
+
+    this.initConfig(timeManager.configure(this, {
       pkg: this.file.readJSON('package.json'),
       exec: {
         build_stylus: {
@@ -104,7 +106,9 @@
           }
         }
       }
-    });
+    }));
+
+    timeManager.registerTasks(this);
 
     // Only lint changed file
     // this.event.on('watch', function(action, filepath) {

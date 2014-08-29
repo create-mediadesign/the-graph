@@ -14,7 +14,7 @@
       selectedEdges="{{selectedEdges}}"
       animatedEdges="{{animatedEdges}}"
       getMenuDef="{{getMenuDef}}"
-      iMaster="{{iMaster}}">
+      timeMaster="{{timeMaster}}">
     </the-graph>
   </template>
   <script>
@@ -36,7 +36,7 @@
       selectedNodes: [],
       selectedEdges: [],
       animatedEdges: [],
-      iMaster: null,
+      timeMaster: null,
       created: function () {
         // Default pan
         var self = this;
@@ -58,7 +58,7 @@
               icon: 'eye',
               iconLabel: 'show',
               action: function(graph, itemKey, item) {
-                self.iMaster.focusChangeSet(item);
+                self.timeMaster.focusChangeSet(item);
               }
             }
             /*s4: {

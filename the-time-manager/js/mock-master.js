@@ -45,14 +45,25 @@
    * misc. helper functions.
    * TODO: replace with proper implementations.
    **/
+  function findChangeSet(id) {
+    id = parseInt(id, 10);
+    return sample1.change_sets.filter(function(set) {
+      return set.id === id;
+    })[0]
+  }
 
 
   /**
    * Interface for the master
    *
    * .getNodes .. all nodes in proper format
+   * .getEdges .. all edges in proper format
+   * .onNeedsUpdate .. event fired when something has change & needs redraw
+   * .focusChangeSet.. set the focus for a specific changeset
    */
-  var IMaster = function() {};
+  var IMaster = function() {
+    this.onNeedsUpdate = null;
+  };
 
   IMaster.prototype.getNodes = function() {
     return sample1.change_sets.map(function(node) {
@@ -78,10 +89,18 @@
   };
 
   IMaster.prototype.focusChangeSet = function(changeSet) {
-    var id = parseInt(changeSet.id, 10);
-    console.log('setting timeline to match change set of id = ' + id);
+    var id = changeSet.id;
+    sample1.change_sets.forEach(function(node) {
+      node.applied = false;
+    });
+    var parent = findChangeSet(id);
+    while (parent) {
+      parent.applied = true;
+      parent = findChangeSet(parent.parent);
+    }
+    this.onNeedsUpdate();
   };
 
-  window.iMaster = new IMaster();
+  window.timeManagerMaster = new IMaster();
 
 })(window);

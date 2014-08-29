@@ -79,7 +79,7 @@
       Polymer.veiledElements = ["the-time-manager"];
       window.addEventListener('polymer-ready', function() {
         "use strict";
-        var iMaster = window.parent.iMaster;
+        var timeMaster = window.parent.timeManagerMaster;
 
         // Remove loading message
         document.body.removeChild( document.getElementById("loading") );
@@ -110,17 +110,28 @@
         // Load empty graph
         var graph = {};
         editor.graph = graph;
-        editor.iMaster = iMaster;
+        editor.timeMaster = timeMaster;
 
 
         var reload = function() {
-          console.log(editor.nofloGraph);
           // Nodes + Edges
-          iMaster.getNodes().map(function(n) {
-            editor.nofloGraph.addNode(n.id, n.component, n.metadata);
+          var existingNodes = editor.nofloGraph.nodes.map(function(node) { return node.id; });
+          var existingEdges = editor.nofloGraph.edges.map(function(edge) { return [edge.from.node, edge.to.node]; }).
+                                                      map(function(edge) { return JSON.stringify(edge); });
+
+          timeMaster.getNodes().map(function(n) {
+            if (existingNodes.indexOf(n.id) === -1) {
+              editor.nofloGraph.addNode(n.id, n.component, n.metadata);
+            } else {
+              editor.nofloGraph.setNodeMetadata(n.id, n.metadata);
+            }
           });
-          iMaster.getEdges().map(function(e) {
-            editor.nofloGraph.addEdge(e.left, 'successor', e.right, 'predecessor', e.meta);
+          timeMaster.getEdges().map(function(e) {
+            if(existingEdges.indexOf(JSON.stringify([e.left, e.right])) === -1) {
+              editor.nofloGraph.addEdge(e.left, 'successor', e.right, 'predecessor', e.meta);
+            } else {
+              editor.nofloGraph.setEdgeMetadata(e.left, 'successor', e.right, 'predecessor', e.meta);
+            }
           });
 
           // Auto Layout
@@ -138,6 +149,10 @@
               }
             });
           }, 200);
+        };
+
+        timeMaster.onNeedsUpdate = function() {
+          reload();
         };
 
 
